@@ -15,7 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import include
+from rest_framework import routers
+from alarm.api.viewsets import AlarmViewSet
+from note.api.viewsets import NoteViewSet
+from tasks.api.viewsets import TasksViewSet
+
+router = routers.DefaultRouter()
+router.register(r'note',NoteViewSet)
+router.register(r'alarm',AlarmViewSet)
+router.register(r'task',TasksViewSet)
 
 urlpatterns = [
+    path('',include(router.urls)),
     path('admin/', admin.site.urls),
 ]
+
